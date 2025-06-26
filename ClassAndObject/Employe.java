@@ -3,13 +3,14 @@ import java.util.Scanner;
 class EmployeDetails {
     String name;
     private int id;
-    int salary;
+    private int salary;
 
     public EmployeDetails(String name,int id,int salary) {
         this.name = name;
         this.id=id;
         this.salary=salary;
     }
+
     public void display(){
         System.out.println("name: "+name);
         System.out.println("id: "+id);
@@ -24,5 +25,6 @@ public class Employe{
         int salary=sc.nextInt();
         EmployeDetails emp=new EmployeDetails(name,id,salary);
 	emp.display();
+    sc.close();
     }
 }

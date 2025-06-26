@@ -18,9 +18,7 @@ public class Cart {
         cart.removeItem(p,q);
         cart.displayTotal();
 
-
-
-
+        sc.close();
     }
 }
 class CartItem{

@@ -1,11 +1,11 @@
 import java.util.Scanner;
 
 class BankAccount {
-    private int accountHolderId;
-    private final int accountNumber;
+    private long accountHolderId;
+    private final long accountNumber;
     private double balance;
 
-    public BankAccount(int accountHolderId, int accountNumber, double initialBalance) {
+    public BankAccount(long accountHolderId, long accountNumber, double initialBalance) {
         this.accountHolderId = accountHolderId;
         this.accountNumber = accountNumber;
         this.balance = initialBalance;
@@ -15,7 +15,7 @@ class BankAccount {
         if (amount > 0) {
             balance += amount;
             System.out.println( amount + " deposited");
-        }=
+        }
     }
 
     public void withdraw(double amount) {
@@ -44,25 +44,31 @@ public class AtmSimulator {
         Scanner sc = new Scanner(System.in);
 
         System.out.print("Enter Account Holder ID (number): ");
-        int id = sc.nextInt();
+        long id = sc.nextLong();
 
         System.out.print("Enter Account Number: ");
-        int accNumber = sc.nextInt();
+        long accNumber = sc.nextLong();
 
         System.out.print("Enter Balance: ");
         double initialBalance = sc.nextDouble();
 
         BankAccount account = new BankAccount(id, accNumber, initialBalance);
 
-        System.out.print("Enter amount to deposit: ");
-        double depositAmount = sc.nextDouble();
-        account.deposit(depositAmount);
+        System.out.print("enter 0 if you wants deposite money else 1:");
+        int a = sc.nextInt();
 
-        System.out.print("Enter amount to withdraw: ");
-        double withdrawAmount = sc.nextDouble();
-        account.withdraw(withdrawAmount);
+        if(a == 0){
+            System.out.print("Enter amount to deposit: ");
+            double depositAmount = sc.nextDouble();
+            account.deposit(depositAmount);
+        }else{
+            System.out.print("Enter amount to withdraw: ");
+            double withdrawAmount = sc.nextDouble();
+            account.withdraw(withdrawAmount);
+        }
 
         account.displayBalance();
         account.displayAccountInfo();
+        sc.close();
     }
 }

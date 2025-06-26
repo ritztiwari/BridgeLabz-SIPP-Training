@@ -4,16 +4,19 @@ public class Book {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-      
+        System.out.print("enter title:");
         String title = sc.nextLine();
-
-        String author = sc.nextLine();
-
         
+        System.out.print("enter author:");
+        String author = sc.nextLine();
+        
+        System.out.print("enter price:");
         double price = sc.nextDouble();
 
         BookDetails book = new BookDetails(title, author, price);
         book.displayDetails();
+
+        sc.close();
     }
 }
 class BookDetails{

@@ -1,0 +1,56 @@
+# --- Java ---
+*.class
+*.jar
+*.war
+*.ear
+
+# --- Logs ---
+*.log
+
+# --- Compiled class files ---
+target/
+bin/
+out/
+
+# --- Eclipse ---
+.project
+.classpath
+.settings/
+*.launch
+
+# --- IntelliJ IDEA ---
+.idea/
+*.iml
+*.iws
+out/
+
+# --- NetBeans ---
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# --- Maven ---
+target/
+
+# --- Gradle ---
+.gradle/
+build/
+
+# --- VS Code ---
+.vscode/
+
+# --- OS/System Files ---
+.DS_Store
+Thumbs.db
+
+# --- Backup Files ---
+*~
+*.swp
+*.bak
+
+# --- Environment Files ---
+.env
+
