@@ -1,0 +1,32 @@
+class TaskManager {
+    private LinkedHashMap<Integer,String> tasks = new LinkedHashMap<>();
+    private int nextId = 1;
+
+    int addTask(String desc) {
+        int id = nextId++;
+        tasks.put(id, desc);
+        return id;
+    }
+
+    boolean removeTask(int id) {
+        return tasks.remove(id) != null;
+    }
+
+    void viewTasksInOrder() {
+        for (Map.Entry<Integer,String> e : tasks.entrySet()) {
+            print(e.getKey() + " -> " + e.getValue());
+        }
+    }
+}
+
+// Example:
+class TasksDemo {
+    static void run() {
+        TaskManager tm = new TaskManager();
+        int t1 = tm.addTask("Check emails");
+        int t2 = tm.addTask("Prepare sales report");
+        int t3 = tm.addTask("Call client");
+        tm.removeTask(t2);
+        tm.viewTasksInOrder(); // shows t1 then t3, preserving insertion order
+    }
+}

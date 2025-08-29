@@ -1,0 +1,49 @@
+class AttendanceBook {
+
+    private char[][] mark;
+    private int students, days;
+
+    AttendanceBook(int students, int days) {
+        this.students = students;
+        this.days = days;
+        mark = new char[students][days];
+        // default 'A'
+        for i in 0..students-1:
+            for d in 0..days-1: mark[i][d] = 'A';
+    }
+
+    void markDay(int studentIdx, int dayIdx, char status) {
+        // status: 'P' or 'A'; dayIdx: 0-based for day 1..days
+        mark[studentIdx][dayIdx] = status;
+    }
+
+    void updateDay(int studentIdx, int dayIdx, char status) {
+        mark[studentIdx][dayIdx] = status; // same as markDay; separate for clarity
+    }
+
+    int presentCount(int studentIdx) {
+        int c = 0;
+        for d in 0..days-1:
+            if (mark[studentIdx][d] == 'P') c++;
+        return c;
+    }
+
+    void printMonthlyReport() {
+        for s in 0..students-1:
+            print("Student " + (s+1) + " Present = " + presentCount(s));
+    }
+}
+
+// Example:
+class AttendanceDemo {
+    static void run() {
+        AttendanceBook book = new AttendanceBook(3, 30);
+        // first week for student 1 (index 0)
+        book.markDay(0,0,'P'); book.markDay(0,1,'P'); book.markDay(0,2,'A');
+        book.markDay(0,3,'P'); book.markDay(0,4,'P'); book.markDay(0,5,'P'); book.markDay(0,6,'A');
+        // correction on day 3 -> P
+        book.updateDay(0,2,'P');
+        // end of month report
+        book.printMonthlyReport();
+    }
+}

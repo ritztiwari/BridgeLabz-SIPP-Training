@@ -1,0 +1,73 @@
+class Ticket {
+    private String movieName;
+    private String seatNo;
+    private double price;
+    private boolean booked;
+
+    Ticket(String movie, String seat, double price) {
+        this.movieName = movie;
+        this.seatNo = seat;
+        this.price = price;
+        this.booked = true;
+    }
+
+    String getSeatNo() { return seatNo; }
+    String getMovieName() { return movieName; }
+    boolean isBooked() { return booked; }
+
+    void cancel() { this.booked = false; }
+}
+
+class Theatre {
+    private Map<String, Set<String>> movieToAvailableSeats; 
+    private Map<String, Ticket> issuedTickets; 
+
+    Theatre(){}
+
+    boolean isSeatAvailable(String movie, String seat) {
+        return movieToAvailableSeats.get(movie).contains(seat);
+    }
+
+    Ticket issueTicket(String movie, String seat, double price) {
+        if (!isSeatAvailable(movie, seat)) return null;
+        Ticket t = new Ticket(movie, seat, price);
+        movieToAvailableSeats.get(movie).remove(seat);
+        issuedTickets.put(movie + "#" + seat, t);
+        return t;
+    }
+
+    boolean cancelTicket(Ticket t) {
+        if (t == null || !t.isBooked()) return false;
+        t.cancel();
+        movieToAvailableSeats.get(t.getMovieName()).add(t.getSeatNo());
+        issuedTickets.remove(t.getMovieName() + "#" + t.getSeatNo());
+        return true;
+    }
+}
+
+class Customer {
+    private String name;
+
+    Customer(String n) { this.name = n; }
+
+    Ticket book(Theatre th, String movie, String seat, double price) {
+        return th.issueTicket(movie, seat, price);
+    }
+
+    boolean cancel(Theatre th, Ticket t) {
+        return th.cancelTicket(t);
+    }
+}
+
+class BookingDemo {
+    static void run() {
+        Theatre pvr = new Theatre();
+        Customer ravi = new Customer("Ravi");
+
+        Ticket t = ravi.book(pvr, "Avengers: Endgame@6PM", "A12", 350.0);
+        if (t != null) print("Issued " + t.getMovieName() + " seat " + t.getSeatNo());
+
+        boolean ok = ravi.cancel(pvr, t);
+        if (ok) print("Cancelled seat A12 and freed it");
+    }
+}

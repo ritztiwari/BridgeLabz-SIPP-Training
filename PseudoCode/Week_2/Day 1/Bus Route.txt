@@ -1,0 +1,36 @@
+class BusRoute {
+    private LinkedList<String> stops = new LinkedList<>();
+
+    void buildInitialRoute(List<String> initialStops) {
+        for (String s : initialStops) stops.add(s);
+    }
+
+    // Insert newStop after existingStop
+    boolean insertAfter(String existingStop, String newStop) {
+        int i = stops.indexOf(existingStop);
+        if (i == -1) return false;
+        stops.add(i + 1, newStop);
+        return true;
+    }
+
+    boolean removeStop(String stop) {
+        return stops.remove(stop);
+    }
+
+    boolean hasStop(String stop) {
+        return stops.contains(stop);
+    }
+
+    void printRoute() { print(stops.toString()); }
+}
+
+class RouteDemo {
+    static void run() {
+        BusRoute r = new BusRoute();
+        r.buildInitialRoute(listOf("Depot","Main Street","City Mall","Hospital","Airport"));
+        r.insertAfter("City Mall", "University");
+        r.removeStop("Hospital");
+        if (r.hasStop("Airport")) print("Airport still on route");
+        r.printRoute();
+    }
+}

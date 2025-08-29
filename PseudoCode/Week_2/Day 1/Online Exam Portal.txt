@@ -1,0 +1,69 @@
+// -------- Base --------
+class User {
+    protected String username;
+    protected String password;
+
+    User(String u, String p) { this.username = u; this.password = p; }
+
+    boolean validateCredentials(String u, String p) {
+        return this.username.equals(u) && this.password.equals(p);
+    }
+
+    // will be overridden
+    boolean login(String u, String p) {
+        return validateCredentials(u, p);
+    }
+}
+
+// -------- Student --------
+class Student extends User {
+    private boolean isRegistered;
+    private boolean isEnrolledInCourse;
+
+    Student(String u, String p, boolean registered, boolean enrolled) {
+        super(u, p);
+        this.isRegistered = registered;
+        this.isEnrolledInCourse = enrolled;
+    }
+
+    @Override
+    boolean login(String u, String p) {
+        if (!validateCredentials(u, p)) return false;
+        if (!isRegistered) return false;
+        if (!isEnrolledInCourse) return false;
+        // show available exams
+        return true;
+    }
+}
+
+// -------- Admin --------
+class Admin extends User {
+    private boolean isStaff;
+    private boolean hasAdminPrivilege;
+
+    Admin(String u, String p, boolean staff, boolean admin) {
+        super(u, p);
+        this.isStaff = staff;
+        this.hasAdminPrivilege = admin;
+    }
+
+    @Override
+    boolean login(String u, String p) {
+        if (!validateCredentials(u, p)) return false;
+        if (!isStaff) return false;
+        if (!hasAdminPrivilege) return false;
+        // show exam management tools
+        return true;
+    }
+}
+
+// -------- Driver / Example --------
+class PortalApp {
+    static void run() {
+        User s = new Student("john123", "secret", true, true);
+        User a = new Admin("admin01", "root", true, true);
+
+        if (s.login("john123", "secret")) print("Student exams visible");
+        if (a.login("admin01", "root")) print("Admin tools visible");
+    }
+}
